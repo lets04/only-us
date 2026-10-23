@@ -8,7 +8,7 @@ const emptyDraft: MemoryDraft = {
   title: '',
   date: '',
   description: '',
-  isQue se vea en nuestro álbum: true,
+  isVisible: true,
   showInCarousel: true,
   showInStory: false,
 }
