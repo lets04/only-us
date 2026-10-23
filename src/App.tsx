@@ -29,7 +29,6 @@ export default function App() {
           <Route path="/historia" element={<HistoryPage />} />
           <Route path="/galeria" element={<GalleryPage />} />
           <Route path="/canciones" element={<SongsPage />} />
-          <Route path="/cositas" element={<Navigate to="/canciones" replace />} />
           <Route path="/cartas" element={<CardsPage />} />
           <Route path="/recuerdos" element={<MemoriesPage />} />
           <Route path="/perfil" element={<ProfilePage />} />
