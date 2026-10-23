@@ -24,7 +24,7 @@ Restart Vite after changing environment variables.
 
 ## 3. Apply the database migration
 
-Apply `supabase/migrations/20261027_push_subscriptions.sql` to the same Supabase project used by OnlyUs. Earlier OnlyUs migrations must already be applied, including the `is_couple_member()` function and the `love_wishes` table.
+Apply the pending migrations to the same Supabase project used by OnlyUs, in chronological order. The base migration `20261022_onlyus.sql` was previously applied; verify the migration history in Supabase before running anything. The migrations `20261023_story_photos_songs.sql`, `20261024_personal_story_intro.sql`, `20261025_natural_story_text.sql`, `20261026_love_wishes.sql`, and `20261027_push_subscriptions.sql` were identified as potentially pending in this project context. Review their contents and apply only those that are not already recorded as applied. The `is_couple_member()` function and `love_wishes` table must exist before push subscriptions can work.
 
 ## 4. Configure Supabase Function secrets
 
