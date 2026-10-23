@@ -10,7 +10,7 @@
   "theme_color": "#101329",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/onlyus-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
