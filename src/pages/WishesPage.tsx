@@ -21,7 +21,7 @@ export function WishesPage() {
   const [loading, setLoading] = useState(true)
   const [pushStatus, setPushStatus] = useState('')
   const [pushBusy, setPushBusy] = useState(false)
-  const [pushEnabled, setPushEnabled] = useState(() => typeof Notification !== 'undefined' && Notification.permission === 'granted')
+  const [pushEnabled, setPushEnabled] = useState(false)
 
   useEffect(() => {
     if (!supabase) { setLoading(false); return }
