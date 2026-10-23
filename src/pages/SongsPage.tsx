@@ -51,7 +51,7 @@ export function SongsPage() {
       else await createSong(draft)
       await refresh()
       setEditor(null)
-      setStatus('Canción guardada.')
+      setStatus('Ya tenemos otra canción para nosotros. 💗')
     } catch (reason) {
       setStatus(reason instanceof Error ? reason.message : 'No pudimos guardar la canción.')
     } finally {
@@ -65,7 +65,7 @@ export function SongsPage() {
     try {
       await deleteSong(song.id)
       await refresh()
-      setStatus('Canción eliminada.')
+      setStatus('Quitamos esta canción de nuestra lista.')
     } catch (reason) {
       setStatus(reason instanceof Error ? reason.message : 'No pudimos eliminar la canción.')
     } finally {
@@ -78,7 +78,7 @@ export function SongsPage() {
       <PageIntro eyebrow="Canciones nuestras" title="La banda sonora de nosotros.">
         Un rincón para las canciones que nos recuerdan, con una dedicatoria y un enlace a Spotify.
       </PageIntro>
-      {isDemo && <Notice kind="warning">En modo demostración las canciones no se guardan. Conecta Supabase para que los dos puedan administrarlas.</Notice>}
+      {isDemo && <Notice kind="warning">Estamos viendo una pequeña muestra de nuestra playlist. 💗</Notice>}
       {error && <Notice kind="warning">{error}</Notice>}
       {status && !editor && <Notice>{status}</Notice>}
 
