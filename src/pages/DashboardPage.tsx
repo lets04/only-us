@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, BookHeart, Images, Quote } from 'lucide-react'
+import { ArrowUpRight, BookHeart, Heart, Images, Quote } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PhotoCarousel } from '../components/PhotoCarousel'
@@ -31,64 +31,64 @@ export function DashboardPage() {
   return (
     <div className="page dashboard">
       <PageIntro eyebrow="Nuestro pequeño universo" title="Hola, mi amorcito.">
-        Un lugar quieto para lo que vamos construyendo entre los dos.
+        Nuestro rinconcito, lleno de esas pequeñas cosas que se vuelven enormes porque las vivimos juntos.
       </PageIntro>
-      <section className="anniversary-card">
-        <div className="anniversary-orbit" aria-hidden="true"><span>✦</span><i /></div>
+      <motion.section className="anniversary-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <div className="anniversary-orbit" aria-hidden="true"><Heart size={27} fill="currentColor" /><i /></div>
         <div>
           <p className="eyebrow">Desde el {formatLongDate(story.relationshipStartDate)}</p>
-          <h2>El tiempo que llevamos eligiendo quedarnos.</h2>
-          <p>El contador se mueve solo. Nuestra historia, no: esa la escribimos nosotros.</p>
+          <h2>Y todavía te sigo eligiendo.</h2>
+          <p>Cada día contigo se suma a nuestra historia, incluso los más sencillitos.</p>
         </div>
-        <div className="duration-grid" aria-label="Tiempo transcurrido">
+        <div className="duration-grid" aria-label="Tiempo juntos">
           <div><strong>{duration.months}</strong><span>meses</span></div>
           <div><strong>{duration.days}</strong><span>días</span></div>
-          <div><strong>{duration.totalDays}</strong><span>días en total</span></div>
+          <div><strong>{duration.totalDays}</strong><span>días juntitos</span></div>
         </div>
-      </section>
+      </motion.section>
       <section className="dashboard-grid">
-        <motion.article className="quote-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.article className="quote-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
           <Quote size={22} />
           <p>{editablePhrases[0]}</p>
-          <span>Una frase para volver a leer</span>
+          <span>Un pedacito de lo que siento por ti <Heart size={12} fill="currentColor" /></span>
         </motion.article>
-        <article className="quick-card">
+        <motion.article className="quick-card" whileHover={{ y: -4 }} transition={{ duration: 0.18 }}>
           <span className="icon-tile"><BookHeart size={20} /></span>
           <div>
             <h3>Nuestra historia</h3>
-            <p>Desde aquel malentendido hasta el día de hoy.</p>
+            <p>Desde aquel comienzo tan inesperado hasta hoy.</p>
           </div>
-          <Link to="/historia" aria-label="Ver nuestra historia"><ArrowUpRight size={20} /></Link>
-        </article>
-        <article className="quick-card">
+          <Link to="/historia" aria-label="Leer nuestra historia"><ArrowUpRight size={20} /></Link>
+        </motion.article>
+        <motion.article className="quick-card" whileHover={{ y: -4 }} transition={{ duration: 0.18 }}>
           <span className="icon-tile icon-tile--pink"><Images size={20} /></span>
           <div>
-            <h3>Galería</h3>
-            <p>Las fotos que ya quisimos guardar.</p>
+            <h3>Nuestras fotitos</h3>
+            <p>Momentos que queremos volver a vivir.</p>
           </div>
-          <Link to="/galeria" aria-label="Ver galería"><ArrowUpRight size={20} /></Link>
-        </article>
+          <Link to="/galeria" aria-label="Ver nuestras fotos"><ArrowUpRight size={20} /></Link>
+        </motion.article>
       </section>
       <section className="section-block">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Carrusel</p>
-            <h2>Fotos que queremos tener cerca</h2>
+            <p className="eyebrow">Nuestros recuerdos <Heart size={12} fill="currentColor" /></p>
+            <h2>Un montón de momentos que son nuestros</h2>
           </div>
-          <Link to="/recuerdos" className="text-link">Administrar fotos <ArrowUpRight size={15} /></Link>
+          <Link to="/recuerdos" className="text-link">Ver y agregar fotitos <ArrowUpRight size={15} /></Link>
         </div>
         <PhotoCarousel photos={carouselPhotos} loading={loading} error={error} />
       </section>
       {latestStory ? (
-        <section className="next-chapter">
+        <motion.section className="next-chapter" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <BookHeart size={20} />
           <div>
-            <p className="eyebrow">En la historia</p>
+            <p className="eyebrow">Un recuerdo de nosotros</p>
             <h2>{latestStory.title}</h2>
             <p>{latestStory.description}</p>
           </div>
-          <Link className="button button--ghost" to="/historia">Abrir historia</Link>
-        </section>
+          <Link className="button button--ghost" to="/historia">Volver a vivirlo</Link>
+        </motion.section>
       ) : null}
     </div>
   )
