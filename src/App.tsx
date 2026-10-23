@@ -4,6 +4,7 @@ import { ProtectedRoute } from './components/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
 import { CardsPage } from './pages/CardsPage'
 import { DashboardPage } from './pages/DashboardPage'
+import { WishesPage } from './pages/WishesPage'
 import { GalleryPage } from './pages/GalleryPage'
 import { HistoryPage } from './pages/HistoryPage'
 import { LoginPage } from './pages/LoginPage'
@@ -27,6 +28,7 @@ export default function App() {
         <Route element={<PrivateLayout />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/historia" element={<HistoryPage />} />
+          <Route path="/deseos" element={<WishesPage />} />
           <Route path="/galeria" element={<GalleryPage />} />
           <Route path="/canciones" element={<SongsPage />} />
           <Route path="/cartas" element={<CardsPage />} />
