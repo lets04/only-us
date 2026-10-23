@@ -1,12 +1,10 @@
 import { Menu, Settings, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
 import { navItems } from './nav'
 
 export function AppShell() {
   const [isOpen, setIsOpen] = useState(false)
-  const { isDemo } = useAuth()
   const close = () => setIsOpen(false)
 
   return (
@@ -35,7 +33,6 @@ export function AppShell() {
             {isOpen ? <X /> : <Menu />}
           </button>
         </header>
-        {isDemo && <div className="demo-banner"><span>Modo demostración</span> · Conecta Supabase para activar acceso privado y recuerdos compartidos.</div>}
         <Outlet />
       </main>
     </div>
