@@ -7,7 +7,7 @@ import { supabase } from '../lib/supabase'
 
 export function LoginPage() {
   const { session, loading, isDemo } = useAuth()
-  const [who, setWho] = useState<'Leticia' | 'Jhonatan'>('Aleja')
+  const [who, setWho] = useState<'Leticia' | 'Jhonatan'>('Leticia')
   const [date, setDate] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
