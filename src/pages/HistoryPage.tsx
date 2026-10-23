@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import { CalendarDays, Heart, ImagePlus, Infinity as InfinityIcon, LoaderCircle, MoonStar, Pencil, Plus, Sparkles, Star, Trash2 } from 'lucide-react'
+import { Heart, ImagePlus, Infinity as InfinityIcon, LoaderCircle, MoonStar, Pencil, Plus, Sparkles, Star, Trash2 } from 'lucide-react'
 import { useEffect, useState, type FormEvent } from 'react'
 import { MemoryEditor } from '../components/MemoryEditor'
-import { ImagePlaceholder, Modal, Notice, PageIntro } from '../components/ui'
+import { ImagePlaceholder, Modal, Notice } from '../components/ui'
 import { FIRST_STORY_MEMORY_ID, defaultStory } from '../data/story'
 import { useMemories } from '../hooks/useMemories'
 import { formatLongDate } from '../lib/dates'
@@ -34,7 +34,7 @@ function elapsedParts(start: string, now: Date) {
 }
 
 export function HistoryPage() {
-  const { memories, loading, error, refresh, isDemo } = useMemories()
+  const { memories, error, refresh, isDemo } = useMemories()
   const [story, setStory] = useState<StorySettings>(defaultStory)
   const [storyLoading, setStoryLoading] = useState(!isDemo)
   const [status, setStatus] = useState('')
@@ -84,7 +84,7 @@ export function HistoryPage() {
     catch { setStatus('No pudimos quitarlo por ahora. Inténtalo de nuevo.') }
     finally { setDeletingId(null) }
   }
-  const chapters = timeline.length ? timeline.map((memory, index) => ({ id: memory.id, title: memory.title, date: formatLongDate(memory.date), description: memory.description, memory })) : chapterTitles.map((item, index) => ({ ...item, id: 'sample-' + index, memory: undefined }))
+  const chapters = timeline.length ? timeline.map((memory) => ({ id: memory.id, title: memory.title, date: formatLongDate(memory.date), description: memory.description, memory })) : chapterTitles.map((item, index) => ({ ...item, id: 'sample-' + index, memory: undefined }))
   const selected = chapters[Math.min(activeChapter, chapters.length - 1)] ?? chapters[0]
   const paragraphs = story.introText.split(/\n\s*\n/)
 

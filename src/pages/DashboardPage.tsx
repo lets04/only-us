@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Heart, Images, MoonStar, Music2, Quote, Sparkles, Star } from 'lucide-react'
+import { ArrowUpRight, Heart, MoonStar, Music2, Quote, Sparkles, Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PhotoCarousel } from '../components/PhotoCarousel'

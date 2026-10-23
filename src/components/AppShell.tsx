@@ -1,4 +1,4 @@
-import { Heart, Home, LogOut, Menu, MoonStar, X, BookHeart, Images, Music2, Mail, Settings, Star } from 'lucide-react'
+import { Heart, Home, LogOut, Menu, MoonStar, X, Images, Music2, Mail, Settings, Star } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
