@@ -7,7 +7,7 @@ import { supabase } from '../lib/supabase'
 
 export function LoginPage() {
   const { session, loading, isDemo } = useAuth()
-  const [who, setWho] = useState<'Aleja' | 'Sebas'>('Aleja')
+  const [who, setWho] = useState<'Leticia' | 'Jhonatan'>('Aleja')
   const [date, setDate] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -50,7 +50,7 @@ export function LoginPage() {
       <h1>Coincidimos<br /><em>bajo la misma luna</em></h1>
       <p className="moon-login-subtitle">Elige quién eres y escribe el día en que todo empezó.</p>
       <div className="moon-who" role="group" aria-label="¿Quién eres?">
-        {(['Aleja', 'Sebas'] as const).map((name) => <button key={name} type="button" aria-pressed={who === name} onClick={() => setWho(name)}><UserRound size={16} />{name}</button>)}
+        {(['Leticia', 'Jhonatan'] as const).map((name) => <button key={name} type="button" aria-pressed={who === name} onClick={() => setWho(name)}><UserRound size={16} />{name}</button>)}
       </div>
       <label className="moon-login-label" htmlFor="relationship-date">Nuestra fecha</label>
       <input id="relationship-date" className="moon-date-input" value={date} onChange={(event) => { setDate(event.target.value); setVerified(false) }} inputMode="numeric" autoComplete="off" placeholder="dd/mm/aaaa" aria-describedby="login-message" />
