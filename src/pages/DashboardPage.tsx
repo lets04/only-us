@@ -1,95 +1,56 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, BookHeart, Heart, Images, Quote } from 'lucide-react'
+import { ArrowUpRight, Heart, Images, MoonStar, Music2, Quote, Sparkles, Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PhotoCarousel } from '../components/PhotoCarousel'
-import { PageIntro } from '../components/ui'
-import { editablePhrases } from '../data/demo'
+import { Notice } from '../components/ui'
 import { defaultStory } from '../data/story'
 import { useMemories } from '../hooks/useMemories'
-import { formatLongDate, getAnniversaryDuration } from '../lib/dates'
 import { getStorySettings } from '../services/story'
 import type { StorySettings } from '../types/models'
+
+function partsSince(date: string, now: Date) {
+  const start = new Date(date + 'T00:00:00')
+  if (Number.isNaN(start.getTime()) || start > now) return [0,0,0,0,0,0]
+  let cursor = new Date(start), years = 0, months = 0
+  while (true) { const next = new Date(cursor); next.setFullYear(next.getFullYear() + 1); if (next > now) break; cursor = next; years++ }
+  while (true) { const next = new Date(cursor); next.setMonth(next.getMonth() + 1); if (next > now) break; cursor = next; months++ }
+  let seconds = Math.floor((now.getTime() - cursor.getTime()) / 1000)
+  const days = Math.floor(seconds / 86400); seconds %= 86400
+  const hours = Math.floor(seconds / 3600); seconds %= 3600
+  const minutes = Math.floor(seconds / 60); seconds %= 60
+  return [years,months,days,hours,minutes,seconds]
+}
 
 export function DashboardPage() {
   const { memories, loading, error, isDemo } = useMemories()
   const [story, setStory] = useState<StorySettings>(defaultStory)
-
+  const [now, setNow] = useState(() => new Date())
+  useEffect(() => { const timer = window.setInterval(() => setNow(new Date()), 1000); return () => window.clearInterval(timer) }, [])
   useEffect(() => {
     if (isDemo) return
     let active = true
-    void getStorySettings()
-      .then((settings) => { if (active) setStory(settings) })
-      .catch(() => undefined)
+    void getStorySettings().then((settings) => { if (active) setStory(settings) }).catch(() => undefined)
     return () => { active = false }
   }, [isDemo])
-
-  const duration = getAnniversaryDuration(story.relationshipStartDate)
+  const elapsed = partsSince(story.relationshipStartDate, now)
   const carouselPhotos = memories.filter((memory) => memory.isVisible && memory.showInCarousel && memory.imageUrl)
-  const latestStory = memories.filter((memory) => memory.isVisible && memory.showInStory).at(-1)
-
-  return (
-    <div className="page dashboard">
-      <PageIntro eyebrow="Nuestro pequeño universo" title="Hola, mi amorcito.">
-        Nuestro rinconcito, lleno de esas pequeñas cosas que se vuelven enormes porque las vivimos juntos.
-      </PageIntro>
-      <motion.section className="anniversary-card" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <div className="anniversary-orbit" aria-hidden="true"><Heart size={27} fill="currentColor" /><i /></div>
-        <div>
-          <p className="eyebrow">Desde el {formatLongDate(story.relationshipStartDate)}</p>
-          <h2>Y todavía te sigo eligiendo.</h2>
-          <p>Cada día contigo se suma a nuestra historia, incluso los más sencillitos.</p>
-        </div>
-        <div className="duration-grid" aria-label="Tiempo juntos">
-          <div><strong>{duration.months}</strong><span>meses</span></div>
-          <div><strong>{duration.days}</strong><span>días</span></div>
-          <div><strong>{duration.totalDays}</strong><span>días juntitos</span></div>
-        </div>
-      </motion.section>
-      <section className="dashboard-grid">
-        <motion.article className="quote-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
-          <Quote size={22} />
-          <p>{editablePhrases[0]}</p>
-          <span>Un pedacito de lo que siento por ti <Heart size={12} fill="currentColor" /></span>
-        </motion.article>
-        <motion.article className="quick-card" whileHover={{ y: -4 }} transition={{ duration: 0.18 }}>
-          <span className="icon-tile"><BookHeart size={20} /></span>
-          <div>
-            <h3>Nuestra historia</h3>
-            <p>Desde aquel comienzo tan inesperado hasta hoy.</p>
-          </div>
-          <Link to="/historia" aria-label="Leer nuestra historia"><ArrowUpRight size={20} /></Link>
-        </motion.article>
-        <motion.article className="quick-card" whileHover={{ y: -4 }} transition={{ duration: 0.18 }}>
-          <span className="icon-tile icon-tile--pink"><Images size={20} /></span>
-          <div>
-            <h3>Nuestras fotitos</h3>
-            <p>Momentos que queremos volver a vivir.</p>
-          </div>
-          <Link to="/galeria" aria-label="Ver nuestras fotos"><ArrowUpRight size={20} /></Link>
-        </motion.article>
-      </section>
-      <section className="section-block">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Nuestros recuerdos <Heart size={12} fill="currentColor" /></p>
-            <h2>Un montón de momentos que son nuestros</h2>
-          </div>
-          <Link to="/recuerdos" className="text-link">Ver y agregar fotitos <ArrowUpRight size={15} /></Link>
-        </div>
-        <PhotoCarousel photos={carouselPhotos} loading={loading} error={error} />
-      </section>
-      {latestStory ? (
-        <motion.section className="next-chapter" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-          <BookHeart size={20} />
-          <div>
-            <p className="eyebrow">Un recuerdo de nosotros</p>
-            <h2>{latestStory.title}</h2>
-            <p>{latestStory.description}</p>
-          </div>
-          <Link className="button button--ghost" to="/historia">Volver a vivirlo</Link>
-        </motion.section>
-      ) : null}
-    </div>
-  )
+  return <div className="moon-home">
+    {error && <Notice kind="warning">{error}</Notice>}
+    <motion.section className="moon-home-hero" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+      <span className="hand-note">hola, mi amorcito</span><MoonStar size={43} className="moon-home-icon" />
+      <h1>Coincidimos<br /><em>bajo la misma luna</em></h1>
+      <p>Entre tantos caminos, qué suerte que el nuestro se cruzara.</p>
+      <div className="moon-home-clock">{elapsed.map((value, index) => <div key={index}><strong>{String(value).padStart(2,'0')}</strong><span>{['años','meses','días','horas','minutos','segundos'][index]}</span></div>)}</div>
+      <span className="moon-home-caption">mi tiempo favorito es contigo <Heart size={13} fill="currentColor" /></span>
+    </motion.section>
+    <section className="moon-home-quote"><Quote size={20} /><div><span className="hand-note">hoy quiero recordarte</span><p>Somos dos personitas aprendiendo a quererse mejor, incluso cuando los días no salen perfectos.</p></div><Heart size={18} fill="currentColor" /></section>
+    <section className="moon-home-links">
+      <Link to="/historia"><Star /><span><strong>Nuestra constelación</strong><small>Cada estrella es un capítulo</small></span><ArrowUpRight /></Link>
+      <Link to="/deseos"><Heart /><span><strong>Antojitos de amor</strong><small>Pídeme un besito, un abrazo o un ratito juntos</small></span><ArrowUpRight /></Link>
+      <Link to="/canciones"><Music2 /><span><strong>Canciones nuestras</strong><small>Esas canciones que nos recuerdan al otro</small></span><ArrowUpRight /></Link>
+    </section>
+    <section className="section-block moon-home-photos"><div className="moon-section-heading"><div><span className="hand-note">pequeños pedacitos de nosotros</span><h2>Nuestras fotitos</h2></div><Link to="/recuerdos" className="text-link">Agregar fotito <ArrowUpRight size={15} /></Link></div><PhotoCarousel photos={carouselPhotos} loading={loading} error={error} /></section>
+    <section className="multiverse-card"><Sparkles size={30} /><span className="hand-note">nuestro multiverso</span><h2>«De todos los universos posibles, qué suerte haber coincidido en este».</h2><p>Y qué bonito seguir escribiendo el nuestro, un recuerdo a la vez.</p></section>
+  </div>
 }
