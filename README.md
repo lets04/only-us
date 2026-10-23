@@ -31,7 +31,7 @@ Estos pasos requieren el panel de Supabase y no están automatizados por la apli
 2. En **Authentication → Providers**, habilita Email. Para mantener el proyecto privado, desactiva el registro público.
 3. En **Authentication → Users**, crea manualmente o invita las dos cuentas de la pareja. Verifica sus correos si tu configuración lo requiere.
 4. Copia únicamente los UUID de esas dos cuentas desde el Dashboard; no los expongas en el navegador ni en contenido público.
-5. En **SQL Editor**, aplica primero `supabase/migrations/20261022_onlyus.sql` y después `supabase/migrations/20261023_story_photos_songs.sql`. La primera crea las tablas, RLS, el bucket privado `memory-photos` y sus políticas. La segunda agrega la historia editable, columnas de visibilidad en `memories` y la tabla `songs`, sin borrar recuerdos ni archivos.
+5. En **SQL Editor**, aplica en este orden `supabase/migrations/20261022_onlyus.sql`, `supabase/migrations/20261023_story_photos_songs.sql` y `supabase/migrations/20261024_personal_story_intro.sql`. La primera crea las tablas, RLS, el bucket privado `memory-photos` y sus políticas. La segunda agrega la historia editable, columnas de visibilidad en `memories` y la tabla `songs`, sin borrar recuerdos ni archivos. La tercera personaliza el texto inicial solo si sigue intacto el texto predeterminado; no sobrescribe una historia que ya hayan editado desde la aplicación.
 6. En una sesión administrativa del SQL Editor, inicializa **solo** los dos perfiles autorizados. Sustituye los marcadores por los UUID reales y nombres que quieran mostrar:
 
 ```sql
