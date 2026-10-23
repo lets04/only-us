@@ -9,10 +9,12 @@ const PERSON_KEY = 'onlyus-person'
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
+
   const [person, setPerson] = useState<Person | null>(() => {
     const saved = localStorage.getItem(PERSON_KEY)
     return saved === 'Leticia' || saved === 'Jhonatan' ? saved : null
   })
+
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
