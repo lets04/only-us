@@ -37,7 +37,7 @@ export function HistoryPage() {
     let active = true
     void getStorySettings()
       .then((settings) => { if (active) setStory(settings) })
-      .catch((reason: unknown) => { if (active) setStatus(reason instanceof Error ? reason.message : 'No pudimos cargar la historia.') })
+      .catch((reason: unknown) => { if (active) setStatus('Hoy no pudimos abrir nuestra historia. Inténtalo de nuevo en un ratito.') })
       .finally(() => { if (active) setStoryLoading(false) })
     return () => { active = false }
   }, [isDemo])
@@ -56,9 +56,9 @@ export function HistoryPage() {
       await updateStorySettings(storyDraft)
       setStory(storyDraft)
       setEditingStory(false)
-      setStatus('Historia guardada.')
+      setStatus('Nuestra historia quedó guardada. 💗')
     } catch (reason) {
-      setStatus(reason instanceof Error ? reason.message : 'No pudimos guardar la historia.')
+      setStatus('No se guardaron los cambios esta vez. Probemos otra vez en un ratito.')
     } finally {
       setSavingStory(false)
     }
@@ -79,7 +79,7 @@ export function HistoryPage() {
       }
       await refresh()
       setEditor(null)
-      setStatus('Recuerdo guardado.')
+      setStatus('Este momento ya tiene su lugar en nuestra historia. 💗')
     } finally {
       setSavingMemory(false)
     }
@@ -108,7 +108,7 @@ export function HistoryPage() {
       <PageIntro eyebrow="Nuestra historia" title={story.title}>
         {story.subtitle}
       </PageIntro>
-      {isDemo && <Notice>Estás viendo la historia en modo demostración. Conecta Supabase para guardar los cambios entre los dos.</Notice>}
+      {isDemo && <Notice>Por ahora puedes recorrer nuestra historia y recordar cómo empezó todo. 💗</Notice>}
       {(error || status) && <Notice kind={error ? 'warning' : 'info'}>{error || status}</Notice>}
 
       <section className="story-intro-card">
