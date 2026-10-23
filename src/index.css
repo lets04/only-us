@@ -46,3 +46,60 @@ body{background:radial-gradient(ellipse at 50% -10%,#3a3a8c 0,transparent 60%),#
 .moon-more-panel>button:not(.moon-more-close){display:flex;align-items:center;gap:12px;width:100%;padding:14px 6px;border:0;border-top:1px solid #b9bee620;background:none;color:#e4e7ff;text-align:left}
 .moon-more-panel>button svg{width:19px;color:#f4cf8a}
 @media(max-width:600px){.moon-login-card h1{font-size:42px}.moon-app-shell{padding:0 16px 100px}.moon-app-top{padding:16px 0}.moon-dock{width:calc(100% - 28px);justify-content:space-around}.moon-dock button{flex:1;gap:5px;padding:10px 8px;font-size:12px}.moon-more-scrim{padding:12px}.moon-more-panel{padding:20px}}
+
+
+/* Shared visual language for the home and wishes views */
+.moon-home{max-width:900px;margin:auto}
+.moon-home-hero,.moon-wishes-hero{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;overflow:hidden;padding:35px 24px 27px;border:1px solid #33337a;border-radius:28px;background:radial-gradient(ellipse at 50% 0%,#6867bb45,transparent 56%),linear-gradient(155deg,#25255a,#14163a 75%);text-align:center}
+.moon-home-icon,.moon-wishes-icon{margin:16px 0 8px;color:#f4cf8a;filter:drop-shadow(0 0 20px #f4cf8a66)}
+.moon-home-hero h1,.moon-wishes-hero h1{margin:5px 0 12px;color:#e4e7ff;font:italic clamp(43px,7vw,70px)/.96 'Instrument Serif',Georgia,serif}
+.moon-home-hero h1 em,.moon-wishes-hero h1 em{color:#ffb8c6;font-weight:400}
+.moon-home-hero>p,.moon-wishes-hero>p{max-width:500px;margin:0;color:#b9bee6;line-height:1.65}
+.moon-home-clock{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;width:min(100%,650px);margin:25px auto 0}
+.moon-home-clock>div{display:grid;gap:5px;padding:12px 5px;border:1px solid #b9bee62b;border-radius:13px;background:#14163a9c}
+.moon-home-clock strong{color:#f4cf8a;font:32px 'Instrument Serif',Georgia,serif;font-variant-numeric:tabular-nums}
+.moon-home-clock span{color:#b9bee6;font-size:10px;letter-spacing:.07em;text-transform:uppercase}
+.moon-home-caption{display:flex;align-items:center;gap:6px;margin-top:13px;color:#ffb8c6;font:21px Gaegu,cursive}
+.moon-home-quote{display:flex;align-items:center;gap:15px;margin-top:17px;padding:22px 24px;border:1px solid #33337a;border-radius:20px;background:#25255a9c;color:#f4cf8a}
+.moon-home-quote>div{flex:1}
+.moon-home-quote p{margin:5px 0 0;color:#e4e7ff;font:24px/1.3 'Instrument Serif',Georgia,serif}
+.moon-home-quote>svg:last-child{color:#ffb8c6}
+.moon-home-links{display:grid;gap:10px;margin-top:18px}
+.moon-home-links>a{display:flex;align-items:center;gap:13px;padding:17px 19px;border:1px solid #33337a;border-radius:17px;background:#25255a80;transition:transform .2s,border-color .2s}
+.moon-home-links>a:hover{transform:translateY(-2px);border-color:#f4cf8a80}
+.moon-home-links>a>svg:first-child{color:#f4cf8a}
+.moon-home-links>a>span{display:grid;gap:4px;flex:1}
+.moon-home-links strong{font-weight:600}
+.moon-home-links small{color:#b9bee6;font-size:12px}
+.moon-home-links>a>svg:last-child{color:#ffb8c6}
+.moon-home-photos .moon-section-heading{display:flex;align-items:end;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:17px}
+.moon-home-photos .moon-section-heading h2{margin:3px 0 0;font:34px 'Instrument Serif',Georgia,serif}
+.moon-home-photos .carousel{border-color:#33337a;background:#25255a88}
+.moon-home .multiverse-card{margin:30px 0 10px}
+.moon-wishes-page{max-width:850px;margin:auto}
+.moon-wishes-hero{margin-bottom:22px}
+.moon-wish-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:13px}
+.moon-wish-orb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:145px;padding:17px 12px;border:1.5px solid #33337a;border-radius:26px;background:#25255a80;text-align:center;transition:transform .2s,background .2s,border-color .2s}
+.moon-wish-orb:hover{transform:translateY(-3px)}
+.moon-wish-orb b{color:#f4cf8a;font:40px 'Instrument Serif',Georgia,serif;font-weight:400}
+.moon-wish-orb strong{font:20px 'Instrument Serif',Georgia,serif;font-weight:400}
+.moon-wish-orb small{color:#b9bee6;font-size:11px}
+.moon-wish-orb.is-selected{border-color:#ffb8c6;background:#ffb8c6;color:#3a1430}
+.moon-wish-orb.is-selected b,.moon-wish-orb.is-selected small{color:#3a1430}
+.moon-wish-message-label{display:block;margin:20px 0 8px;color:#ffb8c6;font:22px Gaegu,cursive}
+.moon-wish-message{width:100%;min-height:95px;padding:15px;border:1.5px solid #33337a;border-radius:18px;background:#14163ab3;color:#e4e7ff;resize:vertical}
+.moon-wish-send{display:flex;align-items:center;justify-content:center;gap:9px;min-height:53px;margin-top:14px;padding:14px 25px;border:0;border-radius:999px;background:#ffb8c6;color:#3a1430;font-weight:700}
+.moon-wish-send:disabled{opacity:.6}
+.moon-wish-inbox{margin-top:42px;padding:24px;border:1px solid #33337a;border-radius:24px;background:#25255a70}
+.moon-wish-inbox-title{display:flex;align-items:center;gap:12px;color:#ffb8c6}
+.moon-wish-inbox-title h2{margin:4px 0 0;color:#e4e7ff;font:30px 'Instrument Serif',Georgia,serif}
+.moon-wish-notification{margin-top:18px;padding:20px;border-radius:17px;background:#e4e7ff;color:#14163a}
+.moon-wish-notification h3{margin:8px 0;font:27px 'Instrument Serif',Georgia,serif}
+.moon-wish-notification p{line-height:1.55}
+.moon-wish-replies{display:grid;gap:8px}
+.moon-wish-replies button{min-height:44px;padding:10px 14px;border:1px solid #25255a5c;border-radius:999px;background:transparent;color:#14163a;text-align:left}
+.moon-wish-response{display:flex;align-items:center;gap:7px;color:#8a3a62;font-weight:600}
+.moon-wish-empty{margin:18px 0 0;color:#b9bee6;line-height:1.6}
+.moon-wish-foot{display:flex;align-items:flex-start;gap:7px;margin:18px 0 0;color:#b9bee6;font-size:11px;line-height:1.6}
+.moon-wish-foot svg{flex:0 0 auto;color:#f4cf8a}
+@media(max-width:600px){.moon-home-hero,.moon-wishes-hero{padding:28px 15px 23px;border-radius:22px}.moon-home-clock{grid-template-columns:repeat(3,minmax(0,1fr));max-width:360px}.moon-home-clock strong{font-size:28px}.moon-home-quote{padding:17px}.moon-home-quote p{font-size:21px}.moon-wish-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.moon-wish-orb{min-height:130px}.moon-wish-inbox{padding:17px}.moon-wish-inbox-title h2{font-size:26px}}
