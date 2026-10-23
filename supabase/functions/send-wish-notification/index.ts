@@ -47,7 +47,7 @@ Deno.serve(async (request) => {
 
   if (wishError || !wish) return Response.json({ error: 'Wish not found for authenticated sender' }, { status: 404, headers: corsHeaders })
 
-  const { data: member, error: memberError } = await admin.rpc('is_couple_member', { user_id: authData.user.id })
+  const { data: member, error: memberError } = await userClient.rpc('is_couple_member')
   if (memberError || member !== true) return Response.json({ error: 'Not a couple member' }, { status: 403, headers: corsHeaders })
 
   const { data: subscriptions, error: subscriptionsError } = await admin.from('push_subscriptions')
