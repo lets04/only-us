@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       value={{
         session,
         loading,
-        isDemo: Boolean(person) || !supabase,
+        isDemo: !supabase,
         person,
         enterAs,
         signOut,
