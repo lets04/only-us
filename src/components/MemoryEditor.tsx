@@ -8,8 +8,8 @@ const emptyDraft: MemoryDraft = {
   title: '',
   date: '',
   description: '',
-  isVisible: true,
-  showInCarousel: false,
+  isQue se vea en nuestro álbum: true,
+  showInCarousel: true,
   showInStory: false,
 }
 
@@ -43,7 +43,7 @@ function MemoryEditorForm({
     date: memory?.date ?? defaults?.date ?? '',
     description: memory?.description ?? defaults?.description ?? '',
     isVisible: memory?.isVisible ?? defaults?.isVisible ?? true,
-    showInCarousel: memory?.showInCarousel ?? defaults?.showInCarousel ?? false,
+    showInCarousel: memory?.showInCarousel ?? defaults?.showInCarousel ?? true,
     showInStory: memory?.showInStory ?? defaults?.showInStory ?? false,
     sortOrder: memory?.sortOrder ?? defaults?.sortOrder,
   })
@@ -88,24 +88,24 @@ function MemoryEditorForm({
         <input required type="date" disabled={disabled || saving} value={draft.date} onChange={(event) => setDraft({ ...draft, date: event.target.value })} />
       </label>
       <label>Anécdota
-        <textarea required rows={5} disabled={disabled || saving} value={draft.description} onChange={(event) => setDraft({ ...draft, description: event.target.value })} placeholder="Lo que queremos recordar de este día…" />
+        <textarea required rows={5} disabled={disabled || saving} value={draft.description} onChange={(event) => setDraft({ ...draft, description: event.target.value })} placeholder="¿Qué pasó ese día que queremos guardar? 💗" />
       </label>
       {imageSrc ? <img className="editor-preview" src={imageSrc} alt="" /> : null}
       <label className="upload-placeholder">
         <ImagePlus size={18} />
-        {photo ? photo.name : imageSrc ? 'Cambiar fotografía' : 'Agregar fotografía'}
+        {photo ? photo.name : imageSrc ? 'Cambiar fotito' : 'Agregar fotito'}
         <small>JPG, PNG o WebP · máximo 5 MB</small>
         <input type="file" accept="image/jpeg,image/png,image/webp" disabled={disabled || saving} onChange={selectPhoto} />
       </label>
       <fieldset className="placement-fieldset" disabled={disabled || saving}>
-        <legend>Dónde aparece</legend>
+        <legend>¿Dónde queremos verla?</legend>
         <label className="check-row">
           <input type="checkbox" checked={Boolean(draft.showInStory)} onChange={(event) => setDraft({ ...draft, showInStory: event.target.checked })} />
           Nuestra historia
         </label>
         <label className="check-row">
           <input type="checkbox" checked={Boolean(draft.showInCarousel)} onChange={(event) => setDraft({ ...draft, showInCarousel: event.target.checked })} />
-          Carrusel de inicio
+          En el inicio
         </label>
         <label className="check-row">
           <input type="checkbox" checked={Boolean(draft.isVisible)} onChange={(event) => setDraft({ ...draft, isVisible: event.target.checked })} />
