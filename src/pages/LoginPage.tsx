@@ -1,48 +1,63 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, LockKeyhole, Mail, Sparkles } from 'lucide-react'
+import { Heart, MoonStar, Sparkles, UserRound } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
 
 export function LoginPage() {
   const { session, loading, isDemo } = useAuth()
+  const [who, setWho] = useState<'Aleja' | 'Sebas'>('Aleja')
+  const [date, setDate] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [verified, setVerified] = useState(false)
   const [message, setMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  if (loading) return <main className="page-loader">Preparando un acceso seguro…</main>
+  if (loading) return <main className="page-loader">Preparando nuestro rinconcito…</main>
   if (session || isDemo) return <Navigate to="/" replace />
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!supabase) return
     setMessage('')
+    if (date.replace(/[^0-9]/g, '') !== '23062025') {
+      setVerified(false)
+      setMessage('Esa no es nuestra fecha. Piensa en el día en que nos hicimos novios. 💗')
+      return
+    }
+    if (!verified) {
+      setVerified(true)
+      setMessage('¡Esa es nuestra fecha! Confirma tu cuenta para cuidar la privacidad de nuestras fotos.')
+      return
+    }
+    if (!supabase) {
+      setMessage('Supabase no está disponible. Revisa la configuración de la aplicación.')
+      return
+    }
     setIsSubmitting(true)
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-    setMessage(error ? 'No pudimos iniciar sesión. Revisa tus datos e inténtalo de nuevo.' : 'Sesión iniciada. Bienvenido a casa.')
+    setMessage(error ? 'No pudimos verificar la cuenta. Revisa tus datos e inténtalo otra vez.' : 'Bienvenido a nuestro pequeño universo. ✨')
     setIsSubmitting(false)
   }
 
-  return <main className="login-page">
-    <div className="login-stars" aria-hidden="true" />
-    <motion.section className="login-copy" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-      <Link to="/" className="brand brand--large"><span className="brand-mark">✦</span>Only<span>Us</span></Link>
-      <p className="eyebrow">Desde el 23 · 06 · 2025</p>
-      <h1>Un espacio privado<br />para lo que es solo nuestro.</h1>
-      <p>Recuerdos, pequeñas cosas y todo lo que todavía queremos construir juntos.</p>
-      <div className="orbit-date"><Sparkles size={16} /> Aniversario · 23 de junio</div>
-    </motion.section>
-    <motion.section className="login-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-      <div className="login-card__head"><span className="icon-tile"><LockKeyhole size={20} /></span><div><h2>Entrar a OnlyUs</h2><p>Este espacio se mantiene solo para nosotros.</p></div></div>
-      <form onSubmit={handleSubmit} className="auth-form">
-        <label><span>Correo electrónico</span><div className="input-with-icon"><Mail size={17} /><input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required placeholder="correo@ejemplo.com" /></div></label>
-        <label><span>Contraseña</span><div className="input-with-icon"><LockKeyhole size={17} /><input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required placeholder="••••••••" /></div></label>
-        <button className="button button--primary button--full" disabled={isSubmitting}>{isSubmitting ? 'Verificando…' : <>Entrar <ArrowRight size={17} /></>}</button>
-      </form>
-      {message && <p className="form-message">{message}</p>}
-      <p className="form-footnote">Las cuentas se crean desde el panel de Supabase para mantener el acceso bajo control.</p>
-    </motion.section>
+  return <main className="moon-login">
+    <div className="moon-login-sky" aria-hidden="true">{Array.from({ length: 70 }, (_, i) => <i key={i} style={{ left: ((i * 37 + 11) % 100) + '%', top: ((i * 61 + 7) % 100) + '%', animationDelay: (i % 9) * -0.43 + 's' }} />)}</div>
+    <motion.form className="moon-login-card" onSubmit={(event) => void handleSubmit(event)} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
+      <div className="hand-note">una historia real, solo de dos</div>
+      <MoonStar className="moon-login-icon" size={42} strokeWidth={1.3} />
+      <div className="moon-login-logo">OnlyUs</div>
+      <h1>Coincidimos<br /><em>bajo la misma luna</em></h1>
+      <p className="moon-login-subtitle">Elige quién eres y escribe el día en que todo empezó.</p>
+      <div className="moon-who" role="group" aria-label="¿Quién eres?">
+        {(['Aleja', 'Sebas'] as const).map((name) => <button key={name} type="button" aria-pressed={who === name} onClick={() => setWho(name)}><UserRound size={16} />{name}</button>)}
+      </div>
+      <label className="moon-login-label" htmlFor="relationship-date">Nuestra fecha</label>
+      <input id="relationship-date" className="moon-date-input" value={date} onChange={(event) => { setDate(event.target.value); setVerified(false) }} inputMode="numeric" autoComplete="off" placeholder="dd/mm/aaaa" aria-describedby="login-message" />
+      {verified && <div className="moon-private-fields"><p><Heart size={14} fill="currentColor" /> ¡Esa es nuestra fecha, {who}! Confirma la cuenta privada para entrar.</p><label htmlFor="email">Correo de tu cuenta</label><input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="username" placeholder="Tu correo" required /><label htmlFor="password">Contraseña</label><input id="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" placeholder="Tu contraseña" required /></div>}
+      <p className="moon-login-error" id="login-message" role="alert">{message}</p>
+      <button className="moon-login-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Abriendo nuestro cielo…' : verified ? 'Entrar a nuestro cielo' : 'Continuar'} <Sparkles size={17} /></button>
+      <p className="moon-login-foot">Un pequeño universo, hecho para nosotros dos. <Heart size={12} fill="currentColor" /></p>
+    </motion.form>
   </main>
 }
