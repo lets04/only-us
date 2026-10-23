@@ -92,3 +92,55 @@
  .anniversary-orbit{animation:none}
  .carousel-frame,.carousel-nav,.carousel-dots button{transition:none}
 }
+
+
+/* OnlyUs: intimate moonlit scrapbook story */
+.moon-story{position:relative;isolation:isolate;max-width:1100px;margin-inline:auto;overflow:hidden}
+.moon-story:before{content:"";position:absolute;z-index:-1;top:-120px;left:8%;width:420px;height:420px;border-radius:50%;background:#7468a820;filter:blur(70px);pointer-events:none}
+.moon-story-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
+.moon-brand{display:inline-flex;align-items:center;gap:8px;color:#f4cf8a;font-family:Georgia,serif;font-style:italic;font-size:25px}
+.moon-hero{position:relative;isolation:isolate;overflow:hidden;min-height:470px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 24px 28px;border:1px solid #b9bee62c;border-radius:28px;background:radial-gradient(ellipse at 50% 5%,#6867bb58,transparent 47%),radial-gradient(ellipse at 50% 100%,#ffb8c618,transparent 50%),linear-gradient(155deg,#25255a,#14163a 72%);box-shadow:0 25px 80px #07081840}
+.moon-hero:before,.moon-hero:after{content:"";position:absolute;z-index:-1;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:80px 60px #fff,180px -20px #e4e7ff,260px 90px #f4cf8a,390px -30px #fff,500px 100px #fff,650px -10px #e4e7ff,780px 70px #fff,-100px 130px #f4cf8a,-220px 20px #fff,-320px 100px #e4e7ff;opacity:.7;animation:moon-twinkle 4s ease-in-out infinite}
+.moon-hero:after{transform:translate(30px,100px) scale(.7);opacity:.4;animation-delay:1.5s}
+@keyframes moon-twinkle{50%{opacity:.18}}
+.moon-hero-glow{position:absolute;z-index:-1;top:25px;right:calc(50% - 150px);width:170px;height:170px;border-radius:50%;background:#f4cf8a0c;filter:blur(12px)}
+.hand-note{font-family:'Gaegu',cursive;color:#ffb8c6;font-size:22px}
+.hero-moon{margin:16px 0 12px;color:#f4cf8a;filter:drop-shadow(0 0 22px #f4cf8a80);animation:moon-float 5s ease-in-out infinite}
+@keyframes moon-float{50%{transform:translateY(-6px) rotate(-4deg)}}
+.moon-kicker{margin:0;color:#f4cf8a;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.moon-hero h1{margin:10px 0 12px;color:#f7f5ff;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(42px,7vw,76px);font-weight:400;line-height:.96;letter-spacing:-.04em}
+.moon-hero h1 em{color:#ffb8c6;font-weight:400}
+.moon-hero-copy{max-width:470px;margin:0 auto;color:#c5c9ed;font-size:15px;line-height:1.7}
+.together-clock{display:grid;grid-template-columns:repeat(6,minmax(58px,1fr));gap:8px;width:min(100%,620px);margin:27px auto 0}
+.clock-unit{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 5px 10px;border:1px solid #b9bee62b;border-radius:13px;background:#14163a9c;backdrop-filter:blur(8px)}
+.clock-unit strong{color:#f4cf8a;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(23px,3.5vw,34px);font-weight:400;font-variant-numeric:tabular-nums;line-height:1}
+.clock-unit span{color:#b9bee6;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.clock-caption{display:flex;align-items:center;gap:7px;margin-top:12px;color:#ffb8c6;font-family:'Gaegu',cursive;font-size:21px}
+.moon-section-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.moon-section-heading h2,.moon-letter-heading h2{margin:3px 0 6px;color:#f0efff;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(27px,4vw,38px);font-weight:400;line-height:1.08}
+.moon-section-heading p{margin:0;color:#b9bee6;font-size:14px}
+.constellation-map{position:relative;height:210px;margin:12px 0 28px;border:1px solid #b9bee61c;border-radius:22px;background:radial-gradient(ellipse at 50% 50%,#33337a40,transparent 70%);overflow:hidden}
+.constellation-map svg{position:absolute;inset:0;width:100%;height:100%;color:#f4cf8a8c}
+.constellation-star{position:absolute;z-index:1;display:flex;align-items:center;justify-content:center;gap:3px;flex-direction:column;width:44px;height:44px;padding:0;border:1px solid #b9bee65c;border-radius:50%;background:#25255a;color:#b9bee6;box-shadow:0 0 0 5px #f4cf8a0c;transform:translate(-50%,-50%);transition:transform .2s,background .2s,color .2s,box-shadow .2s}
+.constellation-star span{font-size:10px}
+.constellation-star:hover{transform:translate(-50%,-50%) scale(1.1)}
+.constellation-star.is-active{background:#f4cf8a;color:#14163a;box-shadow:0 0 0 7px #f4cf8a24,0 0 28px #f4cf8a65}
+.moon-chapter-card{display:grid;grid-template-columns:minmax(220px,.85fr) minmax(0,1.15fr);gap:28px;align-items:center;padding:22px;border:1px solid #b9bee62b;border-radius:24px;background:linear-gradient(135deg,#25255aeb,#1a1b43f2);box-shadow:0 18px 50px #08091e35}
+.moon-chapter-photo{position:relative;min-width:0}
+.moon-chapter-photo>img{display:block;width:100%;aspect-ratio:4/5;max-height:400px;object-fit:cover;border-radius:15px;background:#33337a}
+.moon-photo-empty{display:grid;gap:12px;align-content:center;justify-items:center;min-height:280px;padding:16px;border:1px dashed #b9bee65c;border-radius:15px;background:#14163a6b}
+.moon-photo-empty .image-placeholder{width:100%;min-height:190px}
+.photo-edit{position:absolute;top:10px;right:10px;display:grid;place-items:center;width:36px;height:36px;border:1px solid #fff6;border-radius:50%;background:#14163acc;color:#fff}
+.moon-chapter-copy h3{margin:8px 0 12px;color:#f7f5ff;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(31px,4vw,46px);font-weight:400;line-height:1.02}
+.moon-chapter-copy>p{color:#c5c9ed;font-size:15px;line-height:1.8}
+.moon-chapter-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px}
+.chapter-pager{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:25px;padding-top:16px;border-top:1px solid #b9bee626;color:#b9bee6;font-size:12px}
+.chapter-pager button{padding:7px 0;border:0;background:none;color:#f4cf8a;font-size:12px}
+.photo-note{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 0;color:#b9bee6;font-size:12px;text-align:center}
+.multiverse-card{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:10px;margin:54px 0;padding:40px 28px;border:1px solid #ffb8c63b;border-radius:26px;background:radial-gradient(ellipse at 50% 0%,#ffb8c617,transparent 65%),linear-gradient(145deg,#25255a,#1a1b43);text-align:center;color:#f4cf8a}
+.multiverse-card h2{max-width:760px;margin:0;color:#ffe0eb;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(27px,4.4vw,42px);font-weight:400;line-height:1.15}
+.multiverse-card p{max-width:520px;margin:0;color:#b9bee6;line-height:1.7}
+.moon-story-letter{padding:28px;border:1px solid #b9bee620;border-radius:24px;background:#25255a54}
+.moon-letter-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+@media(max-width:680px){.moon-hero{min-height:420px;padding:36px 16px 24px;border-radius:22px}.together-clock{grid-template-columns:repeat(3,minmax(0,1fr));max-width:360px}.clock-unit{padding:10px 4px}.constellation-map{height:180px}.constellation-star{width:38px;height:38px}.moon-chapter-card{grid-template-columns:1fr;gap:20px;padding:15px}.moon-chapter-photo>img{aspect-ratio:4/3;max-height:320px}.moon-photo-empty{min-height:230px}.moon-story-letter{padding:20px}.moon-story-top{align-items:flex-start}.moon-story-top .button{font-size:12px;padding:8px}}
+@media(prefers-reduced-motion:reduce){.moon-hero:before,.moon-hero:after,.hero-moon{animation:none}}
