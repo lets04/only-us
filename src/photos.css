@@ -50,3 +50,45 @@
   .story-intro-card{padding:20px}
   .timeline-image{max-width:100%}
 }
+
+/* Home carousel: a little more alive, without covering the photos */
+.carousel-frame{min-height:clamp(300px,38vw,470px);isolation:isolate;box-shadow:0 22px 60px #00000035;transition:border-color .25s,box-shadow .25s}
+.carousel-frame:hover{border-color:#e7a4ca66;box-shadow:0 24px 70px #00000045}
+.carousel-vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#11142124 0%,transparent 32%,#11142112 48%,#111421f5 100%)}
+.carousel-caption{z-index:2;padding:64px 30px 28px}
+.carousel-caption p{display:flex;align-items:center;gap:7px}
+.carousel-caption h3{max-width:75%;font-size:clamp(23px,3vw,34px);text-shadow:0 2px 20px #0008}
+.carousel-caption>span{display:block;max-width:650px;margin-top:9px;color:#f0eaf4d9;font-size:13px;line-height:1.6}
+.carousel-heart{position:absolute;z-index:2;display:grid;place-items:center;color:#ffc7e1;filter:drop-shadow(0 4px 12px #0008);pointer-events:none}
+.carousel-heart--one{top:24px;right:28px;width:28px;height:28px}
+.carousel-heart--two{top:65px;right:70px;width:16px;height:16px;color:#fff0f7}
+.carousel-count{position:absolute;z-index:3;right:22px;bottom:25px;color:#fff9;font-size:11px;font-variant-numeric:tabular-nums;letter-spacing:.12em}
+.carousel-nav{z-index:4;width:42px;height:42px;border-color:#ffffff55;background:#1114218a;backdrop-filter:blur(10px);transition:background .2s,transform .2s}
+.carousel-nav:hover{background:#7468a8e8;transform:translateY(-50%) scale(1.06)}
+.carousel-dots{align-items:center;min-height:18px}
+.carousel-dots button{width:7px;height:7px;transition:width .25s,background .25s}
+.carousel-dots button.is-active{width:25px;border-radius:99px}
+.carousel--empty{grid-template-columns:minmax(160px,240px) 1fr;gap:28px;min-height:260px;border-style:solid;background:linear-gradient(115deg,#e7a4ca0d,#7468a81c,#20283c8a)}
+.carousel-empty-art{position:relative;min-width:0}
+.carousel-empty-art .image-placeholder{min-height:180px;border:1px dashed #e7a4ca45;border-radius:13px}
+.empty-heart{position:absolute;z-index:2;color:#e7a4ca;filter:drop-shadow(0 5px 12px #e7a4ca55)}
+.empty-heart--one{top:5px;right:16px}
+.empty-heart--two{top:42px;right:50px;width:15px;color:#f7d5e8}
+.carousel--empty h3{max-width:440px;font-size:22px;line-height:1.25;letter-spacing:-.035em}
+.carousel--empty p:not(.eyebrow){max-width:470px;color:#b8bfd2;font-size:13px;line-height:1.7}
+.anniversary-orbit{animation:heart-breathe 4s ease-in-out infinite}
+@keyframes heart-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@media(max-width:780px){
+ .carousel-frame{min-height:300px}
+ .carousel-caption{padding:48px 18px 22px}
+ .carousel-caption h3{max-width:88%;font-size:23px}
+ .carousel-count{right:16px;bottom:20px}
+ .carousel-heart--one{top:18px;right:18px}
+ .carousel-heart--two{top:52px;right:53px}
+ .carousel--empty{grid-template-columns:1fr;gap:18px}
+ .carousel-empty-art .image-placeholder{min-height:150px}
+}
+@media(prefers-reduced-motion:reduce){
+ .anniversary-orbit{animation:none}
+ .carousel-frame,.carousel-nav,.carousel-dots button{transition:none}
+}
