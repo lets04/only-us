@@ -1,0 +1,19 @@
+{
+  "name": "OnlyUs · Leticia y Jhonatan",
+  "short_name": "OnlyUs",
+  "description": "Nuestro pequeño universo, solo para Leticia y Jhonatan.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#101329",
+  "theme_color": "#101329",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
