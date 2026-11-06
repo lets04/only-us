@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 import { Notice } from "../components/ui";
+import { useAuth } from "../hooks/useAuth";
 import { supabase } from "../lib/supabase";
 
 const wishes = [
@@ -51,12 +52,14 @@ const responses = [
 ];
 
 export function WishesPage() {
+  const { session } = useAuth();
   const [selected, setSelected] = useState<string[]>([]);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
   const [sending, setSending] = useState(false);
   const [latest, setLatest] = useState<{
     id: string;
+    sender_id: string;
     wish_titles: string[];
     message: string;
     response: string | null;
@@ -80,7 +83,7 @@ export function WishesPage() {
     const load = async () => {
       const { data, error } = await client
         .from("love_wishes")
-        .select("id,wish_titles,message,response,created_at")
+        .select("id,sender_id,wish_titles,message,response,created_at")
         .order("created_at", { ascending: false })
         .limit(1)
         .maybeSingle();
@@ -153,7 +156,7 @@ export function WishesPage() {
             .map((w) => w.title),
           message: message.trim(),
         })
-        .select("id,wish_titles,message,response,created_at")
+        .select("id,sender_id,wish_titles,message,response,created_at")
         .single();
       if (error)
         throw new Error(
@@ -265,8 +268,10 @@ export function WishesPage() {
     }
   };
 
+  const isOwnWish = Boolean(latest && latest.sender_id === session?.user.id);
+
   const reply = async (response: string) => {
-    if (!supabase || !latest) return;
+    if (!supabase || !latest || isOwnWish) return;
     const { error } = await supabase
       .from("love_wishes")
       .update({ response })
@@ -388,12 +393,14 @@ export function WishesPage() {
                 <Heart size={15} fill="currentColor" /> Respuesta:{" "}
                 {latest.response}
               </p>
+            ) : isOwnWish ? (
+              <p>
+                Tu amor todavía no lo responde. Te avisamos aquí apenas lo
+                haga. 💗
+              </p>
             ) : (
               <>
-                <p>
-                  Cuando tu amor lo vea, puede responder con una de estas
-                  opciones:
-                </p>
+                <p>Tu amor te pidió esto. ¿Qué le respondes?</p>
                 <div className="moon-wish-replies">
                   {responses.map((response) => (
                     <button
