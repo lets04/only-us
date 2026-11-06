@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
+import { MemoriesProvider } from './context/MemoriesContext'
 import { CardsPage } from './pages/CardsPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { WishesPage } from './pages/WishesPage'
@@ -15,7 +16,9 @@ import { SongsPage } from './pages/SongsPage'
 function PrivateLayout() {
   return (
     <ProtectedRoute>
-      <AppShell />
+      <MemoriesProvider>
+        <AppShell />
+      </MemoriesProvider>
     </ProtectedRoute>
   )
 }
