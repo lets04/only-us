@@ -1,4 +1,5 @@
 {
+  "id": "/",
   "name": "OnlyUs · Leticia y Jhonatan",
   "short_name": "OnlyUs",
   "description": "Nuestro pequeño universo, solo para Leticia y Jhonatan.",
@@ -10,10 +11,28 @@
   "theme_color": "#101329",
   "icons": [
     {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
       "src": "/onlyus-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
