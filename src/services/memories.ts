@@ -1,7 +1,7 @@
 import { FIRST_STORY_MEMORY_ID, firstStoryMemory } from '../data/story'
 import { supabase } from '../lib/supabase'
 import type { Memory, MemoryDraft } from '../types/models'
-import { deleteMemoryPhoto, getSignedMemoryPhotoUrl, uploadMemoryPhoto } from './photos'
+import { deleteMemoryPhoto, getSignedMemoryPhotoUrls, uploadMemoryPhoto } from './photos'
 
 type MemoryRow = {
   id: string
@@ -33,12 +33,7 @@ function validateMemoryDraft(memory: MemoryDraft) {
   if (!memory.description.trim()) throw new Error('Agrega una descripción para guardar el recuerdo.')
 }
 
-async function fromRow(row: MemoryRow): Promise<Memory> {
-  let imageUrl: string | undefined
-  if (row.photo_path) {
-    try { imageUrl = await getSignedMemoryPhotoUrl(row.photo_path) }
-    catch { imageUrl = undefined }
-  }
+function fromRow(row: MemoryRow, imageUrl?: string): Memory {
   return {
     id: row.id,
     title: row.title,
@@ -64,7 +59,10 @@ export async function getMemories(): Promise<Memory[]> {
     .order('memory_date', { ascending: true })
     .order('created_at', { ascending: true })
   if (error) throw new Error('No pudimos cargar los recuerdos. Revisa tu sesión y permisos.')
-  return Promise.all((data as MemoryRow[]).map(fromRow))
+  const rows = data as MemoryRow[]
+  const urls = await getSignedMemoryPhotoUrls(rows.flatMap((row) => row.photo_path ? [row.photo_path] : []))
+    .catch(() => new Map<string, string>())
+  return rows.map((row) => fromRow(row, row.photo_path ? urls.get(row.photo_path) : undefined))
 }
 
 async function nextSortOrder() {

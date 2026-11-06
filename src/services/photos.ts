@@ -2,7 +2,7 @@ import { supabase } from '../lib/supabase'
 
 export const MEMORY_PHOTOS_BUCKET = 'memory-photos'
 export const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024
-export const SIGNED_URL_TTL_SECONDS = 10 * 60
+export const SIGNED_URL_TTL_SECONDS = 60 * 60
 const supportedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp'])
 const photoPathPattern = /^shared\/[0-9a-f-]+\.(jpg|jpeg|png|webp)$/
 
@@ -60,12 +60,16 @@ export async function uploadMemoryPhoto(file: File) {
   return path
 }
 
-export async function getSignedMemoryPhotoUrl(path: string) {
-  if (!photoPathPattern.test(path)) return undefined
-  const client = getClient()
-  const { data, error } = await client.storage.from(MEMORY_PHOTOS_BUCKET).createSignedUrl(path, SIGNED_URL_TTL_SECONDS)
-  if (error) throw new Error('No pudimos preparar una vista privada de la foto.')
-  return data.signedUrl
+export async function getSignedMemoryPhotoUrls(paths: string[]): Promise<Map<string, string>> {
+  const validPaths = [...new Set(paths.filter((path) => photoPathPattern.test(path)))]
+  const urls = new Map<string, string>()
+  if (validPaths.length === 0) return urls
+  const { data, error } = await getClient().storage.from(MEMORY_PHOTOS_BUCKET).createSignedUrls(validPaths, SIGNED_URL_TTL_SECONDS)
+  if (error || !data) return urls
+  for (const item of data) {
+    if (item.path && item.signedUrl && !item.error) urls.set(item.path, item.signedUrl)
+  }
+  return urls
 }
 
 export async function deleteMemoryPhoto(path: string) {
