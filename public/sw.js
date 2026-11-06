@@ -11,7 +11,7 @@ self.addEventListener('push', (event) => {
   try { if (event.data) payload = { ...payload, ...event.data.json() } } catch { if (event.data) payload.body = event.data.text() }
   event.waitUntil(self.registration.showNotification(payload.title || 'OnlyUs 💗', {
     body: payload.body || 'Tienes un mensajito de tu persona favorita.',
-    icon: '/onlyus-icon.svg',
+    icon: '/icons/icon-192.png',
     badge: '/onlyus-icon.svg',
     tag: payload.tag || 'onlyus-love',
     data: { url: payload.url || '/deseos' },
