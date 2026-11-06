@@ -17,9 +17,6 @@ body{background:radial-gradient(ellipse at 50% -10%,#3a3a8c 0,transparent 60%),#
 .moon-login-card h1{margin:12px 0;color:#e4e7ff;font:italic 48px/.98 'Instrument Serif',Georgia,serif}
 .moon-login-card h1 em{color:#ffb8c6;font-weight:400}
 .moon-login-subtitle{max-width:340px;margin:0 auto 25px;color:#b9bee6;line-height:1.6}
-.moon-who{display:flex;gap:12px;margin:0 0 19px}
-.moon-who button{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;min-height:52px;border:1.5px solid #33337a;border-radius:999px;background:transparent;color:#e4e7ff}
-.moon-who button[aria-pressed=true]{border-color:#f4cf8a;background:#f4cf8a;color:#14163a;font-weight:700}
 .moon-login-label{display:block;margin-bottom:7px;color:#ffb8c6;font:700 22px Gaegu,cursive}
 .moon-date-input,.moon-private-fields input{width:100%;min-height:54px;padding:14px 18px;border:1.5px solid #33337a;border-radius:16px;background:#14163ab3;color:#e4e7ff;text-align:center;font-size:17px;letter-spacing:2px}
 .moon-private-fields{display:grid;gap:9px;margin-top:15px;text-align:left}

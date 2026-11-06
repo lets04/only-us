@@ -1,13 +1,12 @@
 import { motion } from 'framer-motion'
-import { Heart, MoonStar, Sparkles, UserRound } from 'lucide-react'
+import { Heart, MoonStar, Sparkles } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
 
 export function LoginPage() {
-  const { session, loading, isDemo, enterAs } = useAuth()
-  const [who, setWho] = useState<'Leticia' | 'Jhonatan'>('Leticia')
+  const { session, loading, isDemo } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
@@ -37,7 +36,6 @@ export function LoginPage() {
         return
       }
 
-      enterAs(who)
       setMessage('Bienvenido a nuestro pequeño universo. ✨')
     } catch {
       setMessage('No pudimos conectar con nuestro universo. Inténtalo otra vez.')
@@ -76,22 +74,8 @@ export function LoginPage() {
           <em>bajo la misma luna</em>
         </h1>
         <p className="moon-login-subtitle">
-          Elige quién eres y entra a nuestro pequeño universo.
+          Entra a nuestro pequeño universo.
         </p>
-
-        <div className="moon-who" role="group" aria-label="¿Quién eres?">
-          {(['Leticia', 'Jhonatan'] as const).map((name) => (
-            <button
-              key={name}
-              type="button"
-              aria-pressed={who === name}
-              onClick={() => setWho(name)}
-            >
-              <UserRound size={16} />
-              {name}
-            </button>
-          ))}
-        </div>
 
         <label className="moon-login-label" htmlFor="login-email">Nuestro correo</label>
         <input
